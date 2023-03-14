@@ -14,7 +14,7 @@ import com.example.bookshelf.ui.screens.HomeScreen
 @Composable
 fun BooksApp(modifier: Modifier = Modifier){
     Scaffold(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         topBar = { TopAppBar(title = {Text(stringResource(R.string.app_name)) })}
 
     ) {
