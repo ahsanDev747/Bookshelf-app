@@ -93,8 +93,10 @@ fun BooksPhotoCard(photo: BookPhoto, modifier: Modifier = Modifier) {
     ) {
         Log.d("debugUI", photo.image)
         AsyncImage(
-
-            model = "http://books.google.com/books/content?id=HOBvDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+            model = ImageRequest.Builder(context = LocalContext.current)
+                .data(photo.image)
+                .crossfade(true)
+                .build(),
             error = painterResource(R.drawable.ic_broken_image),
             placeholder = painterResource(R.drawable.loading_img),
             contentDescription = stringResource(R.string.books_photo),
