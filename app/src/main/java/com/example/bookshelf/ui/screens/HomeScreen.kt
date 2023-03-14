@@ -1,5 +1,6 @@
 package com.example.bookshelf.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -20,8 +21,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.bookshelf.R
-import com.example.bookshelf.model.ImageLinks
-import com.example.bookshelf.model.VolumeInfo
+import com.example.bookshelf.model.BookPhoto
 import com.example.bookshelf.ui.theme.BookshelfTheme
 
 @Composable
@@ -69,20 +69,21 @@ fun ErrorScreen(
 }
 
 @Composable
-fun PhotosGridScreen(photos: MutableList<ImageLinks>, modifier: Modifier = Modifier) {
+fun PhotosGridScreen(photos: MutableList<BookPhoto>, modifier: Modifier = Modifier) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(150.dp),
         modifier = modifier.fillMaxWidth(),
         contentPadding = PaddingValues(4.dp)
     ) {
-        items(items = photos, key = { photo -> photo.smallThumbnail }) { photo ->
+        items(items = photos, key = { photo -> photo.id }) { photo ->
             BooksPhotoCard(photo)
         }
     }
 }
 
+
 @Composable
-fun BooksPhotoCard(photo: ImageLinks, modifier: Modifier = Modifier) {
+fun BooksPhotoCard(photo: BookPhoto, modifier: Modifier = Modifier) {
     Card(
         modifier = modifier
             .padding(4.dp)
@@ -90,11 +91,10 @@ fun BooksPhotoCard(photo: ImageLinks, modifier: Modifier = Modifier) {
             .aspectRatio(1f),
         elevation = 8.dp,
     ) {
+        Log.d("debugUI", photo.image)
         AsyncImage(
-            model = ImageRequest.Builder(context = LocalContext.current)
-                .data(photo.thumbnail)
-                .crossfade(true)
-                .build(),
+
+            model = "http://books.google.com/books/content?id=HOBvDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
             error = painterResource(R.drawable.ic_broken_image),
             placeholder = painterResource(R.drawable.loading_img),
             contentDescription = stringResource(R.string.books_photo),
@@ -121,13 +121,13 @@ fun ErrorScreenPreview() {
     }
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//fun PhotosGridScreenPreview() {
-//    BookshelfTheme {
-//        val mockData = List(10) { ImageLinks("", "$it" ) }
-//        PhotosGridScreen(mockData)
-//    }
-//}
+@Preview(showBackground = true)
+@Composable
+fun PhotosGridScreenPreview() {
+    BookshelfTheme {
+        val mockData = List(10) { BookPhoto("$it", "") }
+        PhotosGridScreen(mockData as MutableList<BookPhoto>)
+    }
+}
 
 

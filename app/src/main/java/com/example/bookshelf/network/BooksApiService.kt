@@ -11,7 +11,7 @@ interface BooksApiService {
     @GET("volumes")
     suspend fun searchBooks(@Query("q") query: String): BookResponse
 
-    @GET("volumes/{id}")
-    suspend fun searchBooksPhotos(@Path("id") bookId: String): Item
+//    @GET("volumes/{id}")
+//    suspend fun searchBooksPhotos(@Path("id") bookId: String): Item
 
 }

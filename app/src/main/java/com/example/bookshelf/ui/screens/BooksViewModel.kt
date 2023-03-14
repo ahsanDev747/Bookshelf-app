@@ -10,14 +10,16 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.bookshelf.BooksApplication
 import com.example.bookshelf.data.BooksRepository
+import com.example.bookshelf.model.BookPhoto
 import com.example.bookshelf.model.ImageLinks
 import com.example.bookshelf.model.VolumeInfo
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
 
 sealed interface BooksUiState {
-    data class Success(val photos: MutableList<ImageLinks>) : BooksUiState
+    data class Success(val photos: MutableList<BookPhoto>) : BooksUiState
     object Error : BooksUiState
     object Loading : BooksUiState
 }
